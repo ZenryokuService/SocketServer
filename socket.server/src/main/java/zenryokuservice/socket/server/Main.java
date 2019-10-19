@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019-present Math Kit JavaFX Library All rights reserved.
+ * Copyright (c) 2019-present ZS Socket Server Library All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -8,13 +8,17 @@
  */
 package zenryokuservice.socket.server;
 
+
+
 /**
+ * SDPを使用して実装する。
  * @author takunoji
- *
+ *@see https://docs.oracle.com/javase/tutorial/sdp/sockets/file.html
  * 2019/10/06
  */
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
+		//LocalDevice device = LocalDevice.getLocalDevice();
 	}
 }
