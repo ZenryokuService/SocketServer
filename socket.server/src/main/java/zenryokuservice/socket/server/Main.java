@@ -8,17 +8,26 @@
  */
 package zenryokuservice.socket.server;
 
+import java.io.IOException;
 
+import javax.bluetooth.L2CAPConnection;
+import javax.bluetooth.L2CAPConnectionNotifier;
+import javax.microedition.io.Connector;
 
 /**
- * SDPを使用して実装する。
+ * BluetoothAPIを使用して実装する。
  * @author takunoji
- *@see https://docs.oracle.com/javase/tutorial/sdp/sockets/file.html
+ * 
  * 2019/10/06
  */
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello World");
-		//LocalDevice device = LocalDevice.getLocalDevice();
+		try {
+			L2CAPConnectionNotifier server = (L2CAPConnectionNotifier)
+			Connector.open("btl2cap://localhost:3B9FA89520078C303355AAA694238F08;name=L2CAP Server1");
+			L2CAPConnection cliCon = (L2CAPConnection)server.acceptAndOpen();
+		} catch (IOException e) {
+		    /* Handle the failure to setup a connection. */
+		}
 	}
 }

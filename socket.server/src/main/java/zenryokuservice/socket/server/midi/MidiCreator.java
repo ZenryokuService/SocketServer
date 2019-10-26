@@ -118,6 +118,7 @@ public class MidiCreator implements MetaEventListener {
 	 * @return the seq
 	 */
 	public Sequencer getSeq() {
+		int d = 1 / 2;
 		return seq;
 	}
 

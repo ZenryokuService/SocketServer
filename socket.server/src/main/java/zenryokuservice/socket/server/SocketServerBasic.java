@@ -59,52 +59,52 @@ public class SocketServerBasic {
      * コンストラクタで作成されたサーバーソケットで
      * 受付処理を開始する。
      */
-    public void startServer() {
-        try {
-            System.out.println("*** SocketServer start " + server.isBound() + "***");
-            Socket recieve = server.accept();
-            System.out.println("*** Server Get Request start***");
-            // 受信データの読み込み
-            StringBuilder responseTxt = new StringBuilder("<Response>");
-            // 受信状態
-            System.out.println("クライアント: " + recieve.getRemoteSocketAddress());
-            System.out.println("接続: " + recieve.isConnected());
-            System.out.println("入力ストリームが閉じている: " + recieve.isInputShutdown());
-            
-            // 受信したリクエスト
-            InputStream in = recieve.getInputStream();
-            // 返却するレスポンス
-            OutputStream writer = recieve.getOutputStream();
-            System.out.print("Server recieve is ...");
-            int c = 0;
-            // CRとCRLFの場合で入力が終了している時がある
-            while((c = in.read()) != -1) {
-                char ch = (char)c;
-                responseTxt.append(ch);
-                // 空の場合
-                if (c == 10 || c == 13) {
-                	break;
-                }
-            }
-            System.out.println(responseTxt.toString());
-            System.out.println("*** Server Send Response start***");
-            // レスポンス送信
-            writer.write((responseTxt.toString() + System.getProperty("file.separator")).getBytes());
-            writer.flush();
-            in.close();
-            writer.close();
-            System.out.println("*** SocketServer end ***");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            // 開いたストリームを閉じる
-            try {
-                closeServer();
-            } catch (IOException e) {
-                e.printStackTrace();
+public void startServer() {
+    try {
+        System.out.println("*** SocketServer start " + server.isBound() + "***");
+        Socket recieve = server.accept();
+        System.out.println("*** Server Get Request start***");
+        // 受信データの読み込み
+        StringBuilder responseTxt = new StringBuilder("<Response>");
+        // 受信状態
+        System.out.println("クライアント: " + recieve.getRemoteSocketAddress());
+        System.out.println("接続: " + recieve.isConnected());
+        System.out.println("入力ストリームが閉じている: " + recieve.isInputShutdown());
+        
+        // 受信したリクエスト
+        InputStream in = recieve.getInputStream();
+        // 返却するレスポンス
+        OutputStream writer = recieve.getOutputStream();
+        System.out.print("Server recieve is ...");
+        int c = 0;
+        // CRとCRLFの場合で入力が終了している時がある
+        while((c = in.read()) != -1) {
+            char ch = (char)c;
+            responseTxt.append(ch);
+            // 空の場合
+            if (c == 10 || c == 13) {
+            	break;
             }
         }
+        System.out.println(responseTxt.toString());
+        System.out.println("*** Server Send Response start***");
+        // レスポンス送信
+        writer.write((responseTxt.toString() + System.getProperty("file.separator")).getBytes());
+        writer.flush();
+        in.close();
+        writer.close();
+        System.out.println("*** SocketServer end ***");
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        // 開いたストリームを閉じる
+        try {
+            closeServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+}
 
     /**
      * ソケットサーバーを終了します。
